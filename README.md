@@ -1,189 +1,189 @@
-# Generador y Análisis de Fractales en Python
+# Python Fractal Generator and Analysis
 
-Proyecto profesional de análisis matemático y visualización de fractales con zoom infinito y recálculo dinámico.
+Professional project for mathematical analysis and visualization of fractals with infinite zoom and dynamic recalculation.
 
-## Descripción
+## Description
 
-Este proyecto demuestra capacidades avanzadas en:
-- Matemáticas computacionales y análisis numérico
-- Visualización científica interactiva
-- Programación orientada a objetos
-- Optimización de algoritmos con NumPy
+This project demonstrates advanced capabilities in:
+- Computational mathematics and numerical analysis
+- Interactive scientific visualization
+- Object-oriented programming
+- Algorithm optimization with NumPy
 
-## Fractales Implementados
+## Implemented Fractals
 
-### 1. Conjunto de Mandelbrot
-**Ecuación:** $$Z_{n+1} = Z_n^2 + C$$
+### 1. Mandelbrot Set
+**Equation:** $$Z_{n+1} = Z_n^2 + C$$
 
-El fractal más famoso. Cada punto C en el plano complejo se colorea según cuántas iteraciones toma para que Z diverja.
+The most famous fractal. Each point C in the complex plane is colored according to how many iterations it takes for Z to diverge.
 
-### 2. Conjunto de Julia
-**Ecuación:** $$Z_{n+1} = Z_n^2 + C$$ (donde C es constante)
+### 2. Julia Set
+**Equation:** $$Z_{n+1} = Z_n^2 + C$$ (where C is constant)
 
-Familia de fractales relacionados con Mandelbrot. Diferentes valores de C producen patrones completamente distintos.
+Family of fractals related to Mandelbrot. Different C values produce completely different patterns.
 
 ### 3. Burning Ship
-**Ecuación:** $$Z_{n+1} = (|Re(Z_n)| + i|Im(Z_n)|)^2 + C$$
+**Equation:** $$Z_{n+1} = (|Re(Z_n)| + i|Im(Z_n)|)^2 + C$$
 
-Fractal que utiliza valores absolutos de las componentes, creando estructuras que parecen barcos ardiendo.
+Fractal that uses absolute values of components, creating structures resembling burning ships.
 
-### 4. Triángulo de Sierpinski
-Fractal clásico generado mediante el método del caos (chaos game). Se construye iterativamente removiendo triángulos.
+### 4. Sierpinski Triangle
+Classic fractal generated through the chaos game method. Built iteratively by removing triangles.
 
 ---
 
-## Scripts Disponibles
+## Available Scripts
 
-### 1. `fractal_generator.py` - Generador Estático
+### 1. `fractal_generator.py` - Static Generator
 
-**Uso:**
+**Usage:**
 \`\`\`bash
 python scripts/fractal_generator.py
 \`\`\`
 
-**Características:**
-- Genera los 4 tipos de fractales automáticamente
-- Incluye análisis matemático completo (entropía, dimensión fractal, etc.)
-- Guarda archivos PNG (300 DPI) y HTML interactivos
-- Formato de salida: `251117_Fractal_mandelbrot.png/html`
+**Features:**
+- Automatically generates all 4 fractal types
+- Includes complete mathematical analysis (entropy, fractal dimension, etc.)
+- Saves PNG files (300 DPI) and interactive HTML
+- Output format: `251117_Fractal_mandelbrot.png/html`
 
-**Ideal para:** Generar rápidamente todos los fractales con análisis profesional
+**Ideal for:** Quickly generating all fractals with professional analysis
 
 ---
 
-### 2. `fractal_flask_zoom.py` - Explorador con Zoom Infinito (RECOMENDADO)
+### 2. `fractal_flask_zoom.py` - Infinite Zoom Explorer (RECOMMENDED)
 
-**Uso:**
+**Usage:**
 \`\`\`bash
 python scripts/fractal_flask_zoom.py
 \`\`\`
 
-El navegador se abrirá automáticamente en `http://localhost:5000`
+Browser will automatically open at `http://localhost:5000`
 
-**Características:**
-- ✅ Recálculo dinámico real al hacer zoom
-- ✅ Sin pixelado - siempre alta resolución
-- ✅ Controles para cambiar fractal e iteraciones
-- ✅ Guarda PNG de alta resolución (1920x1080)
-- ✅ Ecuaciones y explicaciones en la interfaz
+**Features:**
+- ✅ Real dynamic recalculation on zoom
+- ✅ No pixelation - always high resolution
+- ✅ Controls to change fractal and iterations
+- ✅ Saves high-resolution PNG (1920x1080)
+- ✅ Equations and explanations in the interface
 
-**Cómo funciona el zoom infinito:**
-1. Haces zoom arrastrando el mouse en el gráfico
-2. El servidor Flask detecta la nueva región
-3. Recalcula el fractal con 800x800 píxeles para esa área específica
-4. Actualiza el gráfico instantáneamente
+**How infinite zoom works:**
+1. Zoom by dragging mouse on the plot
+2. Flask server detects the new region
+3. Recalculates the fractal with 800x800 pixels for that specific area
+4. Updates the plot instantly
 
-**Controles interactivos:**
-- **Selector de fractal:** Cambia entre Mandelbrot, Julia, Burning Ship
-- **Slider de iteraciones:** Ajusta el detalle (50-500 iteraciones)
-- **Botón "Guardar PNG":** Descarga imagen de alta resolución
-- **Zoom con mouse:** Arrastra para seleccionar área, doble click para resetear
+**Interactive controls:**
+- **Fractal selector:** Switch between Mandelbrot, Julia, Burning Ship
+- **Iterations slider:** Adjust detail (50-500 iterations)
+- **"Save PNG" button:** Download high-resolution image
+- **Mouse zoom:** Drag to select area, double-click to reset
 
-**Ideal para:** Exploración profunda con máxima calidad visual
-
----
-
-## Interpretación de Gráficos
-
-### Ejes
-- **Eje X (Re):** Parte real del número complejo
-- **Eje Y (Im):** Parte imaginaria del número complejo
-
-### Colores
-Los colores representan el **número de iteraciones** antes de que el punto diverja:
-- **Colores oscuros:** Puntos que pertenecen al conjunto (no divergen)
-- **Colores brillantes:** Puntos que divergen rápidamente
-- **Gradientes:** Regiones de transición con comportamiento complejo
-
-### Métricas Calculadas
-
-**Entropía:** Mide la complejidad y aleatoriedad del fractal
-- Alta entropía = más caótico e impredecible
-
-**Varianza:** Dispersión de los valores de iteración
-- Alta varianza = mayor variedad de estructuras
-
-**Dimensión Fractal:** Medida de auto-similitud (método box-counting)
-- Valor típico entre 1.5 y 2.0 para fractales clásicos
+**Ideal for:** Deep exploration with maximum visual quality
 
 ---
 
-## Aplicaciones Profesionales
+## Plot Interpretation
 
-1. **Análisis Numérico:** Algoritmos iterativos complejos optimizados
-2. **Visualización Científica:** Presentación profesional de datos matemáticos
-3. **Desarrollo Web:** Aplicaciones interactivas con Flask
-4. **Optimización:** Uso eficiente de NumPy para cálculos vectorizados
-5. **Arquitectura de Software:** Código modular, documentado y profesional
+### Axes
+- **X-axis (Re):** Real part of the complex number
+- **Y-axis (Im):** Imaginary part of the complex number
+
+### Colors
+Colors represent the **number of iterations** before the point diverges:
+- **Dark colors:** Points belonging to the set (do not diverge)
+- **Bright colors:** Points that diverge quickly
+- **Gradients:** Transition regions with complex behavior
+
+### Calculated Metrics
+
+**Entropy:** Measures the complexity and randomness of the fractal
+- High entropy = more chaotic and unpredictable
+
+**Variance:** Dispersion of iteration values
+- High variance = greater variety of structures
+
+**Fractal Dimension:** Measure of self-similarity (box-counting method)
+- Typical value between 1.5 and 2.0 for classic fractals
 
 ---
 
-## Posibles extensiones
+## Professional Applications
 
-- Animaciones de zoom profundo con video
-- Fractales 3D (Mandelbulb, Menger Sponge)
-- Análisis de convergencia y órbitas
-- Paralelización con multiprocessing
-- Paletas de colores personalizables
-- Exportación a PDF vectorial
-- Sistema de waypoints para regiones interesantes
+1. **Numerical Analysis:** Optimized complex iterative algorithms
+2. **Scientific Visualization:** Professional presentation of mathematical data
+3. **Web Development:** Interactive applications with Flask
+4. **Optimization:** Efficient use of NumPy for vectorized calculations
+5. **Software Architecture:** Modular, documented, and professional code
 
 ---
 
-## Instalaciones necesarias
+## Possible Extensions
 
-### Opción 1: Anaconda (RECOMENDADO)
+- Deep zoom animations with video
+- 3D fractals (Mandelbulb, Menger Sponge)
+- Convergence and orbit analysis
+- Parallelization with multiprocessing
+- Customizable color palettes
+- Vector PDF export
+- Waypoint system for interesting regions
 
-Abre **Anaconda Prompt** y ejecuta:
+---
+
+## Required Installations
+
+### Option 1: Anaconda (RECOMMENDED)
+
+Open **Anaconda Prompt** and run:
 
 \`\`\`bash
-# Crear ambiente virtual (opcional pero recomendado)
+# Create virtual environment (optional but recommended)
 conda create -n fractals python=3.10
 conda activate fractals
 
-# Instalar dependencias
+# Install dependencies
 conda install numpy matplotlib plotly
 pip install kaleido flask
 \`\`\`
 
-### Opción 2: pip
+### Option 2: pip
 
 \`\`\`bash
 pip install numpy matplotlib plotly kaleido flask
 \`\`\`
 
-### Verificar Instalación
+### Verify Installation
 
 \`\`\`bash
-# Verificar kaleido
+# Verify kaleido
 pip show kaleido
 
-# O desde Python
-python -c "import numpy, plotly, flask, kaleido; print('✓ Todo instalado')"
+# Or from Python
+python -c "import numpy, plotly, flask, kaleido; print('✓ Everything installed')"
 \`\`\`
 
 ---
 
-## Seguridad de uso - localhost:5000
+## Security - localhost:5000
 
-### ¿Es seguro usar localhost:5000?
+### Is localhost:5000 safe?
 
-**SÍ, completamente seguro** para uso local:
-- Solo es accesible desde tu computadora
-- No está expuesto a internet
-- Otras personas NO pueden acceder (ni en tu red)
-- Se cierra cuando terminas el script
+**YES, completely safe** for local use:
+- Only accessible from your computer
+- Not exposed to the internet
+- Other people CANNOT access it (not even on your network)
+- Closes when you stop the script
 
-**Preocúpate si:**
-- Configuras `host='0.0.0.0'` (acepta conexiones externas)
-- Añades contraseñas directamente en el código
-- Lo despliegas a un servidor público sin autenticación
+**Be concerned if:**
+- You configure `host='0.0.0.0'` (accepts external connections)
+- You add passwords directly in the code
+- You deploy it to a public server without authentication
 
 ---
 
-## Ejemplos de Uso Programático
+## Programmatic Usage Examples
 
-### Generar Mandelbrot personalizado
+### Generate custom Mandelbrot
 
 \`\`\`python
 from fractal_generator import FractalGenerator, FractalVisualizer
@@ -196,42 +196,42 @@ data = generator.mandelbrot(
 )
 
 visualizer = FractalVisualizer()
-visualizer.plot_fractal(data, 'Mandelbrot Personalizado', colormap='hot')
+visualizer.plot_fractal(data, 'Custom Mandelbrot', colormap='hot')
 \`\`\`
 
-### Explorar Julia Sets interesantes
+### Explore interesting Julia Sets
 
 \`\`\`python
-# Parámetros que generan patrones únicos
-julia1 = generator.julia(c_real=-0.7, c_imag=0.27015)  # Dragón de Douady
-julia2 = generator.julia(c_real=-0.8, c_imag=0.156)    # Espiral
-julia3 = generator.julia(c_real=0.285, c_imag=0.01)    # Dendritas
+# Parameters that generate unique patterns
+julia1 = generator.julia(c_real=-0.7, c_imag=0.27015)  # Douady's Dragon
+julia2 = generator.julia(c_real=-0.8, c_imag=0.156)    # Spiral
+julia3 = generator.julia(c_real=0.285, c_imag=0.01)    # Dendrites
 
 visualizer.compare_fractals(
     [julia1, julia2, julia3],
-    ['Dragón', 'Espiral', 'Dendritas']
+    ['Dragon', 'Spiral', 'Dendrites']
 )
 \`\`\`
 
 ---
 
-## Estructura del Proyecto
+## Project Structure
 
 \`\`\`
 fractals/
 ├── scripts/
-│   ├── fractal_generator.py           # Generador estático con análisis
-│   └── fractal_flask_zoom.py          # Explorador avanzado (zoom infinito)
-├── fractal_outputs/                   # Archivos generados (PNG y HTML)
+│   ├── fractal_generator.py           # Static generator with analysis
+│   └── fractal_flask_zoom.py          # Advanced explorer (infinite zoom)
+├── fractal_outputs/                   # Generated files (PNG and HTML)
 │   ├── 251117_Fractal_mandelbrot.png
 │   ├── 251117_Fractal_mandelbrot.html
 │   └── ...
-└── README.md                          # Este archivo
+└── README.md                          # This file
 \`\`\`
 
 ---
 
-## Solución de Problemas
+## Troubleshooting
 
 ### Error: "No module named 'kaleido'"
 \`\`\`bash
@@ -244,23 +244,33 @@ pip install flask
 \`\`\`
 
 ### Error: "Address already in use" (Flask)
-Otro programa está usando el puerto 5000. Cambia el puerto en el código:
+Another program is using port 5000. Change the port in the code:
 \`\`\`python
 app.run(port=5001, debug=False, use_reloader=False)
 \`\`\`
 
-### Los PNG no se guardan
-- Verifica que kaleido esté instalado: `pip show kaleido`
-- Los archivos HTML siempre se guardan y son completamente funcionales
+### PNGs not saving
+- Verify kaleido is installed: `pip show kaleido`
+- HTML files always save and are fully functional
 
-### Ejecución lenta
-- Reduce resolución: `width=600, height=600`
-- Reduce iteraciones: `max_iter=100`
-- Cierra otros programas que usen CPU
+### Slow execution
+- Reduce resolution: `width=600, height=600`
+- Reduce iterations: `max_iter=100`
+- Close other CPU-intensive programs
 
 ---
 
-## Autora
-@vcserrano248
-**Temas relacionados:** análisis de datos, matemáticas computacionales y visualización científica.
-**Tecnologías:** Python, NumPy, Matplotlib, Plotly, Flask
+## Author
+**Author & Project Director:** vcserrano248 using AI-assisted development tools.
+**Related topics:** data analysis, computational mathematics, and scientific visualization.
+**Technologies:** Python, NumPy, Matplotlib, Plotly, Flask
+
+This project was conceptualized, designed, and directed by Veronica Serrano. The implementation leverages AI as a development accelerator, with all architectural decisions, mathematical formulations, feature specifications, code review, and quality assurance performed by the author.
+
+This project demonstrates proficiency in:
+- Mathematical modeling and fractal theory conceptualization
+- Technical requirements analysis and specification
+- AI prompt engineering and iterative development
+- Code architecture and design decisions
+- Quality assurance and functional verification
+- Python scientific computing and visualization
