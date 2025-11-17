@@ -32,7 +32,105 @@ Fractal clásico generado mediante el método del caos (chaos game). Se construy
 
 ---
 
-## Instalación
+## Scripts Disponibles
+
+### 1. `fractal_generator.py` - Generador Estático
+
+**Uso:**
+\`\`\`bash
+python scripts/fractal_generator.py
+\`\`\`
+
+**Características:**
+- Genera los 4 tipos de fractales automáticamente
+- Incluye análisis matemático completo (entropía, dimensión fractal, etc.)
+- Guarda archivos PNG (300 DPI) y HTML interactivos
+- Formato de salida: `251117_Fractal_mandelbrot.png/html`
+
+**Ideal para:** Generar rápidamente todos los fractales con análisis profesional
+
+---
+
+### 2. `fractal_flask_zoom.py` - Explorador con Zoom Infinito (RECOMENDADO)
+
+**Uso:**
+\`\`\`bash
+python scripts/fractal_flask_zoom.py
+\`\`\`
+
+El navegador se abrirá automáticamente en `http://localhost:5000`
+
+**Características:**
+- ✅ Recálculo dinámico real al hacer zoom
+- ✅ Sin pixelado - siempre alta resolución
+- ✅ Controles para cambiar fractal e iteraciones
+- ✅ Guarda PNG de alta resolución (1920x1080)
+- ✅ Ecuaciones y explicaciones en la interfaz
+
+**Cómo funciona el zoom infinito:**
+1. Haces zoom arrastrando el mouse en el gráfico
+2. El servidor Flask detecta la nueva región
+3. Recalcula el fractal con 800x800 píxeles para esa área específica
+4. Actualiza el gráfico instantáneamente
+
+**Controles interactivos:**
+- **Selector de fractal:** Cambia entre Mandelbrot, Julia, Burning Ship
+- **Slider de iteraciones:** Ajusta el detalle (50-500 iteraciones)
+- **Botón "Guardar PNG":** Descarga imagen de alta resolución
+- **Zoom con mouse:** Arrastra para seleccionar área, doble click para resetear
+
+**Ideal para:** Exploración profunda con máxima calidad visual
+
+---
+
+## Interpretación de Gráficos
+
+### Ejes
+- **Eje X (Re):** Parte real del número complejo
+- **Eje Y (Im):** Parte imaginaria del número complejo
+
+### Colores
+Los colores representan el **número de iteraciones** antes de que el punto diverja:
+- **Colores oscuros:** Puntos que pertenecen al conjunto (no divergen)
+- **Colores brillantes:** Puntos que divergen rápidamente
+- **Gradientes:** Regiones de transición con comportamiento complejo
+
+### Métricas Calculadas
+
+**Entropía:** Mide la complejidad y aleatoriedad del fractal
+- Alta entropía = más caótico e impredecible
+
+**Varianza:** Dispersión de los valores de iteración
+- Alta varianza = mayor variedad de estructuras
+
+**Dimensión Fractal:** Medida de auto-similitud (método box-counting)
+- Valor típico entre 1.5 y 2.0 para fractales clásicos
+
+---
+
+## Aplicaciones Profesionales
+
+1. **Análisis Numérico:** Algoritmos iterativos complejos optimizados
+2. **Visualización Científica:** Presentación profesional de datos matemáticos
+3. **Desarrollo Web:** Aplicaciones interactivas con Flask
+4. **Optimización:** Uso eficiente de NumPy para cálculos vectorizados
+5. **Arquitectura de Software:** Código modular, documentado y profesional
+
+---
+
+## Posibles extensiones
+
+- Animaciones de zoom profundo con video
+- Fractales 3D (Mandelbulb, Menger Sponge)
+- Análisis de convergencia y órbitas
+- Paralelización con multiprocessing
+- Paletas de colores personalizables
+- Exportación a PDF vectorial
+- Sistema de waypoints para regiones interesantes
+
+---
+
+## Instalaciones necesarias
 
 ### Opción 1: Anaconda (RECOMENDADO)
 
@@ -66,77 +164,7 @@ python -c "import numpy, plotly, flask, kaleido; print('✓ Todo instalado')"
 
 ---
 
-## Scripts Disponibles
-
-### 1. `fractal_generator.py` - Generador Estático
-
-**Uso:**
-\`\`\`bash
-python scripts/fractal_generator.py
-\`\`\`
-
-**Características:**
-- Genera los 4 tipos de fractales automáticamente
-- Incluye análisis matemático completo (entropía, dimensión fractal, etc.)
-- Guarda archivos PNG (300 DPI) y HTML interactivos
-- Formato de salida: `251117_Fractal_mandelbrot.png/html`
-
-**Ideal para:** Generar rápidamente todos los fractales con análisis profesional
-
----
-
-### 2. `fractal_zoom_standalone.py` - Explorador Interactivo Básico
-
-**Uso:**
-\`\`\`bash
-python scripts/fractal_zoom_standalone.py
-\`\`\`
-
-**Características:**
-- Genera niveles de zoom predefinidos
-- Abre automáticamente en el navegador
-- Interacción con Plotly (zoom, pan, guardar)
-- No requiere servidor
-
-**Limitación:** El zoom adicional en el navegador amplía píxeles existentes (aparece pixelado)
-
-**Ideal para:** Exploración rápida sin necesidad de servidor
-
----
-
-### 3. `fractal_flask_zoom.py` - Explorador con Zoom Infinito (RECOMENDADO)
-
-**Uso:**
-\`\`\`bash
-python scripts/fractal_flask_zoom.py
-\`\`\`
-
-El navegador se abrirá automáticamente en `http://localhost:5000`
-
-**Características:**
-- ✅ Recálculo dinámico real al hacer zoom
-- ✅ Sin pixelado - siempre alta resolución
-- ✅ Controles para cambiar fractal e iteraciones
-- ✅ Guarda PNG de alta resolución (1920x1080)
-- ✅ Ecuaciones y explicaciones en la interfaz
-
-**Cómo funciona el zoom infinito:**
-1. Haces zoom arrastrando el mouse en el gráfico
-2. El servidor Flask detecta la nueva región
-3. Recalcula el fractal con 800x800 píxeles para esa área específica
-4. Actualiza el gráfico instantáneamente
-
-**Controles interactivos:**
-- **Selector de fractal:** Cambia entre Mandelbrot, Julia, Burning Ship
-- **Slider de iteraciones:** Ajusta el detalle (50-500 iteraciones)
-- **Botón "Guardar PNG":** Descarga imagen de alta resolución
-- **Zoom con mouse:** Arrastra para seleccionar área, doble click para resetear
-
-**Ideal para:** Exploración profunda con máxima calidad visual
-
----
-
-## Seguridad - localhost:5000
+## Seguridad de uso - localhost:5000
 
 ### ¿Es seguro usar localhost:5000?
 
@@ -146,42 +174,10 @@ El navegador se abrirá automáticamente en `http://localhost:5000`
 - Otras personas NO pueden acceder (ni en tu red)
 - Se cierra cuando terminas el script
 
-### ¿Es seguro publicar en GitHub?
-
-**SÍ, 100% seguro** porque:
-- No contiene contraseñas, API keys, o credenciales
-- Es solo código matemático y visualización
-- Cualquiera puede ejecutarlo localmente sin riesgos
-
-**Solo preocúpate si:**
+**Preocúpate si:**
 - Configuras `host='0.0.0.0'` (acepta conexiones externas)
 - Añades contraseñas directamente en el código
 - Lo despliegas a un servidor público sin autenticación
-
----
-
-## Interpretación de Gráficos
-
-### Ejes
-- **Eje X (Re):** Parte real del número complejo
-- **Eje Y (Im):** Parte imaginaria del número complejo
-
-### Colores
-Los colores representan el **número de iteraciones** antes de que el punto diverja:
-- **Colores oscuros:** Puntos que pertenecen al conjunto (no divergen)
-- **Colores brillantes:** Puntos que divergen rápidamente
-- **Gradientes:** Regiones de transición con comportamiento complejo
-
-### Métricas Calculadas
-
-**Entropía:** Mide la complejidad y aleatoriedad del fractal
-- Alta entropía = más caótico e impredecible
-
-**Varianza:** Dispersión de los valores de iteración
-- Alta varianza = mayor variedad de estructuras
-
-**Dimensión Fractal:** Medida de auto-similitud (método box-counting)
-- Valor típico entre 1.5 y 2.0 para fractales clásicos
 
 ---
 
@@ -264,38 +260,7 @@ app.run(port=5001, debug=False, use_reloader=False)
 
 ---
 
-## Aplicaciones Profesionales
-
-Este proyecto demuestra competencias en:
-
-1. **Análisis Numérico:** Algoritmos iterativos complejos optimizados
-2. **Visualización Científica:** Presentación profesional de datos matemáticos
-3. **Desarrollo Web:** Aplicaciones interactivas con Flask
-4. **Optimización:** Uso eficiente de NumPy para cálculos vectorizados
-5. **Arquitectura de Software:** Código modular, documentado y profesional
-
----
-
-## Posibles Extensiones
-
-- Animaciones de zoom profundo con video
-- Fractales 3D (Mandelbulb, Menger Sponge)
-- Análisis de convergencia y órbitas
-- Paralelización con multiprocessing
-- Paletas de colores personalizables
-- Exportación a PDF vectorial
-- Sistema de waypoints para regiones interesantes
-
----
-
-## Autor
-
-Proyecto desarrollado como portfolio profesional en análisis de datos, matemáticas computacionales y visualización científica.
-
+## Autora
+@vcserrano248
+**Temas relacionados:** análisis de datos, matemáticas computacionales y visualización científica.
 **Tecnologías:** Python, NumPy, Matplotlib, Plotly, Flask
-
-**Licencia:** MIT - Libre para usar y modificar
-\`\`\`
-
-```md file="INSTRUCCIONES_INSTALACION.md" isDeleted="true"
-...deleted...
