@@ -179,31 +179,45 @@ class FractalVisualizer:
             return plt.cm.get_cmap(name)
     
     @staticmethod
-    def plot_fractal(data, title, colormap='viridis', filename_base=None):
+    def plot_fractal(data, title, equation, axis_labels, interpretation, colormap='viridis', filename_base=None):
         """
         Visualiza un fractal y lo guarda en PNG y HTML
         
         Args:
             data: Array 2D con datos del fractal
             title: Título del gráfico
+            equation: Ecuación matemática del fractal
+            axis_labels: Diccionario con labels de los ejes {'x': '...', 'y': '...'}
+            interpretation: Texto explicativo del fractal
             colormap: Nombre del mapa de color
             filename_base: Nombre base del archivo (sin extensión)
         """
         data_normalized = np.log(data + 1)
         
-        fig, ax = plt.subplots(figsize=(12, 10))
+        fig, ax = plt.subplots(figsize=(14, 11))
         
         cmap = FractalVisualizer.create_colormap(colormap)
         
-        im = ax.imshow(data_normalized, cmap=cmap, interpolation='bilinear', origin='lower')
-        ax.set_title(title, fontsize=16, fontweight='bold', pad=20)
-        ax.axis('off')
+        im = ax.imshow(data_normalized, cmap=cmap, interpolation='bilinear', origin='lower',
+                      extent=[0, data.shape[1], 0, data.shape[0]])
         
-        # Agregar colorbar
+        # Título con ecuación
+        ax.set_title(f'{title}\n{equation}', fontsize=16, fontweight='bold', pad=20)
+        
+        # Labels de ejes
+        ax.set_xlabel(axis_labels['x'], fontsize=12, fontweight='bold')
+        ax.set_ylabel(axis_labels['y'], fontsize=12, fontweight='bold')
+        
+        # Colorbar con explicación
         cbar = plt.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
-        cbar.set_label('Iteraciones (log scale)', rotation=270, labelpad=20)
+        cbar.set_label('Número de iteraciones hasta divergencia (escala logarítmica)', 
+                      rotation=270, labelpad=25, fontsize=10)
         
-        plt.tight_layout()
+        # Agregar texto explicativo
+        fig.text(0.5, 0.02, interpretation, ha='center', fontsize=10, 
+                wrap=True, bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.3))
+        
+        plt.tight_layout(rect=[0, 0.08, 1, 1])
         
         if filename_base:
             png_filename = f"{filename_base}.png"
@@ -215,16 +229,28 @@ class FractalVisualizer:
         if filename_base:
             fig_plotly = go.Figure(data=go.Heatmap(
                 z=data_normalized,
-                colorscale=colormap if colormap in ['viridis', 'plasma', 'inferno'] else 'viridis',
+                colorscale=colormap if colormap in ['viridis', 'plasma', 'inferno', 'hot'] else 'viridis',
                 colorbar=dict(title="Iteraciones (log)")
             ))
             
             fig_plotly.update_layout(
-                title=title,
+                title=f'{title}<br><sub>{equation}</sub>',
                 width=1200,
                 height=1000,
-                xaxis=dict(visible=False),
-                yaxis=dict(visible=False)
+                xaxis=dict(title=axis_labels['x'], visible=True),
+                yaxis=dict(title=axis_labels['y'], visible=True),
+                annotations=[
+                    dict(
+                        text=interpretation,
+                        xref="paper", yref="paper",
+                        x=0.5, y=-0.1,
+                        showarrow=False,
+                        font=dict(size=11),
+                        bgcolor="rgba(255, 255, 200, 0.8)",
+                        bordercolor="black",
+                        borderwidth=1
+                    )
+                ]
             )
             
             html_filename = f"{filename_base}.html"
@@ -232,16 +258,21 @@ class FractalVisualizer:
             print(f"Gráfico HTML interactivo guardado: {html_filename}")
     
     @staticmethod
-    def plot_sierpinski(x, y, title, filename_base=None):
+    def plot_sierpinski(x, y, title, equation, interpretation, filename_base=None):
         """Visualiza el triángulo de Sierpinski y lo guarda en PNG y HTML"""
-        fig, ax = plt.subplots(figsize=(10, 10))
+        fig, ax = plt.subplots(figsize=(12, 11))
         
         ax.scatter(x, y, s=0.1, c='#0066cc', alpha=0.5)
-        ax.set_title(title, fontsize=16, fontweight='bold', pad=20)
+        ax.set_title(f'{title}\n{equation}', fontsize=16, fontweight='bold', pad=20)
+        ax.set_xlabel('Coordenada X', fontsize=12, fontweight='bold')
+        ax.set_ylabel('Coordenada Y', fontsize=12, fontweight='bold')
         ax.set_aspect('equal')
-        ax.axis('off')
         
-        plt.tight_layout()
+        # Agregar texto explicativo
+        fig.text(0.5, 0.02, interpretation, ha='center', fontsize=10,
+                wrap=True, bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.3))
+        
+        plt.tight_layout(rect=[0, 0.08, 1, 1])
         
         if filename_base:
             png_filename = f"{filename_base}.png"
@@ -258,12 +289,24 @@ class FractalVisualizer:
             ))
             
             fig_plotly.update_layout(
-                title=title,
+                title=f'{title}<br><sub>{equation}</sub>',
                 width=1000,
                 height=1000,
-                xaxis=dict(visible=False),
-                yaxis=dict(visible=False, scaleanchor="x", scaleratio=1),
-                showlegend=False
+                xaxis=dict(title='Coordenada X', visible=True),
+                yaxis=dict(title='Coordenada Y', visible=True, scaleanchor="x", scaleratio=1),
+                showlegend=False,
+                annotations=[
+                    dict(
+                        text=interpretation,
+                        xref="paper", yref="paper",
+                        x=0.5, y=-0.1,
+                        showarrow=False,
+                        font=dict(size=11),
+                        bgcolor="rgba(255, 255, 200, 0.8)",
+                        bordercolor="black",
+                        borderwidth=1
+                    )
+                ]
             )
             
             html_filename = f"{filename_base}.html"
@@ -391,9 +434,16 @@ def main():
     print("\n1. CONJUNTO DE MANDELBROT")
     print("-" * 60)
     mandelbrot_data = generator.mandelbrot(max_iter=100)
+    
     visualizer.plot_fractal(
         mandelbrot_data, 
         'Conjunto de Mandelbrot', 
+        equation='$$z_{n+1} = z_n^2 + c$$, donde $$z_0 = 0$$ y $$c$$ es un número complejo',
+        axis_labels={'x': 'Parte Real de c: Re(c)', 'y': 'Parte Imaginaria de c: Im(c)'},
+        interpretation=(f'Este fractal muestra qué números complejos c permanecen acotados bajo iteración. '
+                       f'Los puntos negros pertenecen al conjunto (no divergen). Los colores indican la '
+                       f'velocidad de escape: colores cálidos = divergencia rápida, colores fríos = divergencia lenta. '
+                       f'Región: Re(c) ∈ [-2.5, 1.5], Im(c) ∈ [-2, 2]. Dimensión fractal ≈ 2.'),
         colormap='sunset',
         filename_base=f"{output_dir}/251117_Fractal_Mandelbrot"
     )
@@ -401,18 +451,26 @@ def main():
     # Análisis
     stats = analyzer.analyze_complexity(mandelbrot_data)
     print(f"\nAnálisis de Complejidad:")
-    print(f"  - Entropía: {stats['entropy']:.4f}")
-    print(f"  - Varianza: {stats['variance']:.4f}")
-    print(f"  - Gradiente promedio: {stats['avg_gradient']:.4f}")
-    print(f"  - Ratio de ocupación: {stats['fill_ratio']:.4f}")
+    print(f"  - Entropía: {stats['entropy']:.4f} (mide la complejidad de la distribución)")
+    print(f"  - Varianza: {stats['variance']:.4f} (dispersión de valores)")
+    print(f"  - Gradiente promedio: {stats['avg_gradient']:.4f} (cambios locales)")
+    print(f"  - Ratio de ocupación: {stats['fill_ratio']:.4f} (fracción del plano cubierta)")
     
     # 2. Julia Set
     print("\n\n2. CONJUNTO DE JULIA")
     print("-" * 60)
+    c_val = complex(-0.7, 0.27015)
     julia_data = generator.julia(c_real=-0.7, c_imag=0.27015, max_iter=100)
+    
     visualizer.plot_fractal(
         julia_data, 
-        'Conjunto de Julia (c = -0.7 + 0.27i)', 
+        f'Conjunto de Julia (c = {c_val})', 
+        equation=f'$$z_{{n+1}} = z_n^2 + c$$, donde $$c = {c_val.real} + {c_val.imag}i$$ (constante)',
+        axis_labels={'x': 'Parte Real de z: Re(z)', 'y': 'Parte Imaginaria de z: Im(z)'},
+        interpretation=(f'A diferencia del Mandelbrot, aquí c es fijo y variamos el punto inicial z₀. '
+                       f'Este fractal muestra qué puntos iniciales permanecen acotados. El parámetro c = {c_val} '
+                       f'genera un patrón dendrítico característico. Los colores indican cuántas iteraciones '
+                       f'tarda cada punto en escapar al infinito. Región: Re(z) ∈ [-2, 2], Im(z) ∈ [-2, 2].'),
         colormap='ocean',
         filename_base=f"{output_dir}/251117_Fractal_Julia_Classic"
     )
@@ -421,9 +479,16 @@ def main():
     print("\n\n3. BURNING SHIP FRACTAL")
     print("-" * 60)
     burning_data = generator.burning_ship(max_iter=100)
+    
     visualizer.plot_fractal(
         burning_data, 
         'Burning Ship Fractal', 
+        equation='$$z_{n+1} = (|Re(z_n)| + i|Im(z_n)|)^2 + c$$',
+        axis_labels={'x': 'Parte Real de c: Re(c)', 'y': 'Parte Imaginaria de c: Im(c)'},
+        interpretation=(f'Variante del Mandelbrot que aplica valor absoluto a las componentes antes de elevar al cuadrado. '
+                       f'Esto rompe la simetría y crea estructuras que parecen un barco en llamas. '
+                       f'La estructura principal se asemeja a un barco con humo ascendente. Los valores absolutos '
+                       f'generan patrones únicos no presentes en fractales clásicos. Región: Re(c) ∈ [-2, 1], Im(c) ∈ [-2, 1].'),
         colormap='fire',
         filename_base=f"{output_dir}/251117_Fractal_BurningShip"
     )
@@ -431,10 +496,17 @@ def main():
     # 4. Sierpinski Triangle
     print("\n\n4. TRIÁNGULO DE SIERPINSKI")
     print("-" * 60)
-    x, y = generator.sierpinski_triangle(iterations=15)
+    num_iter = 15
+    x, y = generator.sierpinski_triangle(iterations=num_iter)
+    
     visualizer.plot_sierpinski(
         x, y, 
         'Triángulo de Sierpinski',
+        equation='Juego del Caos: $$P_{n+1} = \\frac{P_n + V}{2}$$, donde V es un vértice aleatorio',
+        interpretation=(f'Generado mediante el "Juego del Caos": desde un punto inicial, repetidamente elegimos '
+                       f'un vértice aleatorio y nos movemos a la mitad del camino hacia él. Después de {2**num_iter:,} '
+                       f'iteraciones, emerge este patrón fractal autosimilar. Cada triángulo pequeño es una copia '
+                       f'exacta del todo. Dimensión fractal: log(3)/log(2) ≈ 1.585. Ejemplo clásico de autosimilaridad.'),
         filename_base=f"{output_dir}/251117_Fractal_Sierpinski"
     )
     
@@ -451,14 +523,21 @@ def main():
     julia_titles = []
     
     for c_real, c_imag, name in julia_params:
+        c_val = complex(c_real, c_imag)
         data = generator.julia(c_real, c_imag, max_iter=80)
         julia_fractals.append(data)
         julia_titles.append(f'Julia: c = {c_real} + {c_imag}i')
         
-        # Guardar individualmente
+        # Guardar individualmente con explicaciones
         visualizer.plot_fractal(
             data,
-            f'Julia {name}: c = {c_real} + {c_imag}i',
+            f'Julia {name}',
+            equation=f'$$z_{{n+1}} = z_n^2 + c$$, donde $$c = {c_real} + {c_imag}i$$',
+            axis_labels={'x': 'Parte Real de z: Re(z)', 'y': 'Parte Imaginaria de z: Im(z)'},
+            interpretation=(f'Variante {name} del conjunto de Julia. Cada valor de c produce un fractal '
+                          f'completamente diferente. Este parámetro c = {c_val} genera patrones característicos '
+                          f'que varían desde conexos hasta conjuntos de Cantor. Los diferentes colores muestran '
+                          f'las cuencas de atracción hacia el infinito.'),
             colormap='viridis',
             filename_base=f"{output_dir}/251117_Fractal_Julia_{name}"
         )
@@ -471,9 +550,16 @@ def main():
     zoom_data = generator.mandelbrot(xmin=-0.8, xmax=-0.4, 
                                      ymin=-0.2, ymax=0.2, 
                                      max_iter=150)
+    
     visualizer.plot_fractal(
         zoom_data, 
-        'Mandelbrot - Zoom Detail', 
+        'Mandelbrot - Zoom Detallado', 
+        equation='$$z_{n+1} = z_n^2 + c$$ (región ampliada)',
+        axis_labels={'x': 'Parte Real de c: Re(c)', 'y': 'Parte Imaginaria de c: Im(c)'},
+        interpretation=(f'Ampliación de la región Re(c) ∈ [-0.8, -0.4], Im(c) ∈ [-0.2, 0.2]. '
+                       f'El zoom revela detalles infinitos: cada ampliación muestra estructuras similares '
+                       f'al conjunto completo (autosimilaridad). Las mini-Mandelbrots aparecen en todas las '
+                       f'escalas. Mayor número de iteraciones (150) revela más detalles finos en el borde.'),
         colormap='sunset',
         filename_base=f"{output_dir}/251117_Fractal_Mandelbrot_Zoom"
     )
@@ -481,7 +567,8 @@ def main():
     print("\n" + "=" * 60)
     print("ANÁLISIS COMPLETADO")
     print(f"Todos los gráficos guardados en la carpeta: {output_dir}/")
-    print("Formatos: PNG (alta resolución) y HTML (interactivo)")
+    print("Formatos: PNG (alta resolución, 300 DPI) y HTML (interactivo)")
+    print("Cada gráfico incluye ecuaciones, labels de ejes y explicaciones")
     print("=" * 60)
 
 
