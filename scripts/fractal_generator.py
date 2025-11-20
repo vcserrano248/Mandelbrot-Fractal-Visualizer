@@ -1,5 +1,5 @@
 """
-Generador de Fractales - Proyecto de Análisis Matemático
+Día 000 - Generador de Fractales - Proyecto de Análisis Matemático
 Crea y analiza diferentes tipos de fractales con visualizaciones profesionales
 """
 
