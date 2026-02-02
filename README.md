@@ -12,9 +12,24 @@ Advanced Python project for mathematical visualization and analysis of fractals 
 
 ## 📊 Visualizations Included
 
-![Mandelbrot Zoom Detail](https://hebbkx1anhila5yf.public.blob.vercel-storage.com/251117_Fractal%20%285%29%20-%20Zoom%20en%20Mandelbrot%20con%20150%20iteraciones-9NEZgVMyyQ3kW8eNXUeXaKuN3eYAQi.png)
+### Mandelbrot Set
+![Mandelbrot Set Full](images/mandelbrot-set-full.png)
 
-![Julia Sets Comparison](https://hebbkx1anhila5yf.public.blob.vercel-storage.com/251117_Fractal%20%284%29%20-%20Comparaci%C3%B3n%20de%20Conjuntos%20de%20Julia-k4RVgWStLyYX6hk8Bp4y0as0afGTIm.png)
+### Mandelbrot Zoom Detail
+![Mandelbrot Zoom](images/mandelbrot-zoom-detail.png)
+
+### Julia Sets
+![Julia Set c = -0.7 + 0.27i](images/julia-set-c-0.7-0.27i.png)
+
+### Julia Sets Comparison
+![Julia Sets Comparison](images/julia-sets-comparison.png)
+
+### Burning Ship Fractal
+![Burning Ship](images/burning-ship-fractal.png)
+
+### Sierpinski Triangle
+![Sierpinski Triangle](images/sierpinski-triangle.png)
+
 
 ## 📐 Mathematical Foundation
 
