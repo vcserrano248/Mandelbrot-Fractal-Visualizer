@@ -1,6 +1,6 @@
 # Fractal Generator - Interactive Zoom Explorer
 
-Advanced Python project for mathematical visualization and analysis of fractals with infinite zoom capability.
+Python project for mathematical visualization and analysis of fractals with infinite zoom capability.
 
 ## 🎨 Features
 
